@@ -25,12 +25,17 @@ Application properties
 Example of properties for PostgreSQL
 
   $ jdbc.driverClassName=org.postgresql.Driver
+
   $ jdbc.url=jdbc:postgresql://127.0.0.1:5432/notes 
+
   $ jdbc.username=Admin
+
   $ jdbc.password=
 
   $ jpa.database_platform=org.hibernate.dialect.PostgreSQLDialect
+
   $ jpa.show_sql=true
+
   $ jpa.generate_ddl=true
 
 Create database 'notes'
@@ -44,6 +49,7 @@ Log propertires
 ## International messages
 
   $ notesSpringMvcDemo\src\main\resources\messages_en.properties
+
   $ notesSpringMvcDemo\src\main\resources\messages_ru.properties
  
 
@@ -57,6 +63,7 @@ or
 or 
 
  $ mvn package 
+
 and deploy notesSpringMvcDemo.war
 
 
