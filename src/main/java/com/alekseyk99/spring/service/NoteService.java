@@ -1,8 +1,7 @@
-package com.alekseyk99.spring.controller;
+package com.alekseyk99.spring.service;
 
 import java.util.List;
-
-import com.alekseyk99.spring.model.Note;
+import com.alekseyk99.spring.dto.NoteDto;
 
 /**
  * Service layer interface
@@ -14,14 +13,14 @@ public interface NoteService {
 	 * Get list of all notes
 	 * @return List of all notes
 	 */
-	List<Note> getAllList();
+	List<NoteDto> getAllList();
 
 	/** 
 	 * Add new Note
 	 * @param note Note object with ID = null
 	 * @return Created Note object 
 	 */
-	Note add(Note note);
+	NoteDto add(NoteDto note);
 
 	/**
 	 * Delete Note by Id 
@@ -34,14 +33,14 @@ public interface NoteService {
 	 * @param note Note object with ID
 	 * @return Updated Note object 
 	 */
-	Note updateNote(Note note);
+	NoteDto updateNote(NoteDto note);
 
 	/** 
 	 * Get filtered list
 	 * @param filter String to filter with
 	 * @return Filtered list or all notes if filter is null or empty
 	 */
-	List<Note> getFilteredList(String filter);
+	List<NoteDto> getFilteredList(String filter);
 
 	/** 
 	 * Get 5 most often used words

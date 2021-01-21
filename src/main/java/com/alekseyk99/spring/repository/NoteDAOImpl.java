@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
+import com.alekseyk99.spring.dto.NoteDto;
 import com.alekseyk99.spring.model.Note;
 
 /**
@@ -31,7 +31,8 @@ public class NoteDAOImpl implements NoteDAO {
 		 */
 	    @Override
 		@Transactional(propagation= Propagation.REQUIRED, readOnly=false)
-	    public Note addNote(Note note) {
+	    public Note addNote(String subject, String text) {
+	        Note note = new Note(subject, text);
 	        entityManager.persist(note);
 	        return note;
 	    }
@@ -93,7 +94,7 @@ public class NoteDAOImpl implements NoteDAO {
 		 */
 		@Override
 		@Transactional(propagation= Propagation.REQUIRED, readOnly=false)
-		public Note updateNote(Note note) {
+		public Note updateNote(NoteDto note) {
 			// #find is needed because #merge does not get field "createTime" 
 			return	entityManager.merge(
 						entityManager.

@@ -18,8 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
-
+import com.alekseyk99.spring.dto.NoteDto;
 import com.alekseyk99.spring.model.Note;
+import com.alekseyk99.spring.service.NoteService;
 
 /**
  * Handles requests for the application pages
@@ -47,7 +48,7 @@ public class WebController {
 	}
 	
     @RequestMapping(value="/addNote", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE )
-    public @ResponseBody Note addNote(@RequestBody Note note) throws Exception {
+    public @ResponseBody NoteDto addNote(@RequestBody NoteDto note) throws Exception {
 	    logger.debug("addNote note={}", note);
 	    if (note.getId() != null) {
 	    	throw new IllegalArgumentException("Id should be null");
@@ -66,7 +67,7 @@ public class WebController {
     }
 
     @RequestMapping(value="/updateNote", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE )
-    public @ResponseBody Note updateNote(@RequestBody Note note) throws Exception {
+    public @ResponseBody NoteDto updateNote(@RequestBody NoteDto note) throws Exception {
 	    logger.debug("updateNote note={}", note);
 	    if (note.getId() == null) {
 	    	throw new IllegalArgumentException("Id cannot be null");
@@ -75,7 +76,7 @@ public class WebController {
     }
 
     @RequestMapping(value="/filterNote", method=RequestMethod.POST )
-    public @ResponseBody List<Note> filterNote(@RequestParam("filter") String filter, Model model) throws Exception {
+    public @ResponseBody List<NoteDto> filterNote(@RequestParam("filter") String filter, Model model) throws Exception {
 	    logger.debug("filterNote filter={}",filter);
 	    return noteService.getFilteredList(filter);
     }

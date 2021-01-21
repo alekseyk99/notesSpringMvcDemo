@@ -1,6 +1,7 @@
 package com.alekseyk99.spring.repository;
 
 import java.util.List;
+import com.alekseyk99.spring.dto.NoteDto;
 import com.alekseyk99.spring.model.Note;
 
 /**
@@ -15,7 +16,7 @@ public interface NoteDAO {
 	 * @param note Note object with ID = null
 	 * @return Created Note object 
 	 */
-	Note addNote(Note note);
+	Note addNote(String subject, String text);
 
 	/**
 	 * Delete Note by Id 
@@ -49,6 +50,6 @@ public interface NoteDAO {
 	 * @param note Note object with ID
 	 * @return Updated Note object 
 	 */
-	Note updateNote(Note note);
+	Note updateNote(NoteDto note);
 
 }

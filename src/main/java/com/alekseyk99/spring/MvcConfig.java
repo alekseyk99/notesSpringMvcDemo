@@ -24,7 +24,9 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  */
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = { "com.alekseyk99.spring.controller" })
+@ComponentScan(basePackages = { 
+        "com.alekseyk99.spring.controller", 
+        "com.alekseyk99.spring.service" })
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
 	@Override

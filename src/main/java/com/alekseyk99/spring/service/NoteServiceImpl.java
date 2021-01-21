@@ -1,13 +1,14 @@
-package com.alekseyk99.spring.controller;
+package com.alekseyk99.spring.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.alekseyk99.spring.dto.NoteDto;
 import com.alekseyk99.spring.model.Note;
 import com.alekseyk99.spring.repository.NoteDAO;
 
@@ -21,26 +22,33 @@ public class NoteServiceImpl implements NoteService {
 	 * Injected DAO layer
 	 */
 	private final NoteDAO noteDao;
+	private final ModelMapper mapper;
 	
 	@Autowired
 	public NoteServiceImpl(NoteDAO noteDao) {
 		this.noteDao = noteDao;
+		this.mapper = new ModelMapper();
 	}
 
-	/**
+    /**
 	 * @see NoteService#getAllList()
 	 */
 	@Override
-	public List<Note> getAllList() {
-		return noteDao.getAllNotes();
+	public List<NoteDto> getAllList() {
+		List<NoteDto> result = new ArrayList<>();
+		for (Note note : noteDao.getAllNotes()) {
+		    result.add(mapper.map(note, NoteDto.class));
+		};
+		return result;
 	}
 	
 	/**
 	 * @see NoteService#add(Note)
 	 */
 	@Override
-	public Note add(Note note) {
-		return noteDao.addNote(note);
+	public NoteDto add(NoteDto dto) {
+	    Note newNote = noteDao.addNote(dto.getSubject(), dto.getText());
+		return mapper.map(newNote, NoteDto.class);
 	}
 
 	/**
@@ -55,19 +63,24 @@ public class NoteServiceImpl implements NoteService {
 	 * @see NoteService#updateNote(Note)
 	 */
 	@Override
-	public Note updateNote(Note note) {
-		return noteDao.updateNote(note);
+	public NoteDto updateNote(NoteDto note) {
+		return mapper.map(noteDao.updateNote(note), NoteDto.class);
 	}
 
 	/**
 	 * @see NoteService#getFilteredList(String)
 	 */
 	@Override
-	public List<Note> getFilteredList(String filter) {
+	public List<NoteDto> getFilteredList(String filter) {
 		if ((filter == null) || ("".equals(filter))) {
 			return getAllList();
 		}
-		return noteDao.getFilteredNotes(filter.toLowerCase());
+		List<Note> notes = noteDao.getFilteredNotes(filter.toLowerCase());
+		List<NoteDto> result = new ArrayList<>();
+        for (Note note : notes) {
+            result.add(mapper.map(note, NoteDto.class));
+        };
+        return result;
 	}
 	
 	/**

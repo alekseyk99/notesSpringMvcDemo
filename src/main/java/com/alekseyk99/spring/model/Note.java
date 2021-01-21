@@ -49,7 +49,12 @@ public class Note {
 	public Note() {
 	}
 
-	public Integer getId() {
+	public Note(String subject, String text) {
+	    this.subject = subject;
+	    this.text = text;
+    }
+
+    public Integer getId() {
 		return id;
 	}
 
